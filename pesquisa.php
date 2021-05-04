@@ -52,17 +52,20 @@
                     $endereco = $linha['endereco'];
                     $telefone = $linha['telefone'];
                     $email = $linha['email'];
-                    $nascimento = $linha['data_nascimento'];
+                    $nascimento = $linha['nascimento'];
                     $nascimento = mostra_data($nascimento);
 
-                    echo"<tr>
+                    echo "<tr>
                             <th scope='row'>$nome</th>
                             <td>$endereco</td>
                             <td>$telefone</td>
                             <td>$email</td>
                             <td>$nascimento</td>
-                            <td><a href='cadastro_edit.php?id=$cod_pessoa' class='btn btn-success'>Editar<a>
-                                <a href='#' class='btn btn-danger'>Excluir<a>
+                            <td>
+                                <a href='cadastro_edit.php?id=$cod_pessoa' class='btn btn-success'>Editar</a>
+                                <a href='#' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#confirma'
+                                onclick=" .'"' ."pegar_dados($cod_pessoa,'$nome')" .'"' ."
+                                >Excluir</a>
                             </td>
                         </tr>";
                   }
@@ -78,7 +81,35 @@
         
     </div>
 
-   
+    <!-- Modal -->
+    <div class="modal fade" id="confirma" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmação de Exclusão</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="excluir_script.php" method="POST">
+            <p>Deseja realmente excluir?</p>
+            <p id = "nome_pessoa">Excluir </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+            <input type="text" name="id" id="cod_pessoa" value="">
+            <input type="submit" class="btn btn-primary" value="Sim">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function pegar_dados(id, nome){
+        document.getElementById('nome_pessoa').innerHTML = nome;
+        document.getElementById('cod_pessoa').value = id;
+
+      }
+    </script>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

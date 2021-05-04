@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <title>Cadastro</title>
+    <title>Alteração de Cadastro</title>
   </head>
   <body>
     <div class="container">
@@ -16,7 +16,7 @@
 
         <?php
           include "conexao.php"; //puxa o arquivo de conexao
-
+          $id = $_POST['id'];
           $nome = $_POST['nome']; //puxa os dados do index
           $endereco = $_POST['endereco'];
           $telefone = $_POST['telefone'];
@@ -24,14 +24,16 @@
           $nascimento = $_POST['nascimento'];
 
           //cria a query pra inserir os dados do form atraves das variaveis
-          $sql = "INSERT INTO `pessoas`(`nome`, `endereco`, `telefone`, `email`, `nascimento`) 
-          VALUES('$nome','$endereco','$telefone','$email','$nascimento')";
+          //$sql = "INSERT INTO `pessoas`(`nome`, `endereco`, `telefone`, `email`, `nascimento`) 
+          //VALUES('$nome','$endereco','$telefone','$email','$nascimento')";
+
+          $sql = "UPDATE `pessoas` set `nome` = '$nome', `endereco` = '$endereco', `telefone` = '$telefone', `email` = 'email', `nascimento` = '$nascimento' WHERE cod_pessoa = $id";
 
           if(mysqli_query($conn, $sql)){ //faz a conexao com o banco e insere
-            mensagem("$nome cadastrado com sucesso!",'success');
+            mensagem("$nome alterado com sucesso!",'success');
 
           }else
-            mensagem("$nome nao cadastrado!",'danger');
+            mensagem("$nome nao alterado!",'danger');
 
         ?>
         <a href="index.php" class="btn btn-primary">Voltar</a>
